@@ -1,0 +1,7 @@
+<!DOCTYPE html><html lang="es" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Menú - SIGR</title><link rel="stylesheet" href="/estilos.css"></head>
+<body><div th:replace="~{fragmentos :: cabecera}"></div><main><div class="tarjeta">
+<h2 id="titulo-menu">Menú digital</h2>
+<table id="tabla-menu"><tr><th>Plato</th><th>Categoría</th><th>Precio</th><th>Disponible</th></tr>
+<tr th:each="p : ${platos}"><td th:text="${p.nombre}"></td><td th:text="${p.categoria.nombre}"></td>
+<td th:text="${'$' + #numbers.formatInteger(p.precio,1,'POINT')}"></td><td th:text="${p.disponible} ? 'Sí' : 'No'"></td></tr></table>
+<form method="post" action="/logout"><button id="btn-salir" type="submit">Cerrar sesión</button></form></div></main></body></html>

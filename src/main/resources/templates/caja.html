@@ -1,0 +1,4 @@
+<!DOCTYPE html><html lang="es" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Caja - SIGR</title><link rel="stylesheet" href="/estilos.css"></head>
+<body><div th:replace="~{fragmentos :: cabecera}"></div><main><div class="tarjeta"><h2>Cierre de caja</h2>
+<p>Fecha: <b id="cierre-fecha" th:text="${cierre.fecha}"></b></p><p>Pedidos pagados: <b id="cierre-pedidos" th:text="${cierre.pedidosPagados}"></b></p>
+<p>Total de ventas: <b id="cierre-total" th:text="${'$' + #numbers.formatInteger(cierre.totalVentas,1,'POINT')}"></b></p></div></main></body></html>

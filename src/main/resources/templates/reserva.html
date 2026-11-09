@@ -1,0 +1,12 @@
+<!DOCTYPE html><html lang="es" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Reservar mesa - SIGR</title><link rel="stylesheet" href="/estilos.css"></head>
+<body><div th:replace="~{fragmentos :: cabecera}"></div><main><div class="tarjeta" style="max-width:520px;margin:auto">
+<h2>Reservar una mesa</h2>
+<div id="mensaje-exito" class="exito" th:if="${exito}" th:text="${exito}"></div>
+<div id="mensaje-error" class="error" th:if="${error}" th:text="${error}"></div>
+<form id="form-reserva" method="post" action="/reservas/nueva">
+<label for="cliente">Nombre completo</label><input id="cliente" name="cliente" th:value="${cliente}">
+<label for="telefono">Teléfono (10 dígitos)</label><input id="telefono" name="telefono" th:value="${telefono}">
+<label for="fecha">Fecha</label><input id="fecha" name="fecha" type="date" th:value="${fecha}">
+<label for="hora">Hora (12:00 a 22:00)</label><input id="hora" name="hora" type="time" th:value="${hora}">
+<label for="personas">Número de personas</label><input id="personas" name="personas" type="number" th:value="${personas}">
+<button id="btn-reservar" type="submit">Confirmar reserva</button></form></div></main></body></html>

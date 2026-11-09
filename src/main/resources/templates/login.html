@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="es" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Ingresar - SIGR</title><link rel="stylesheet" href="/estilos.css"></head>
+<body><div th:replace="~{fragmentos :: cabecera}"></div><main><div class="tarjeta" style="max-width:420px;margin:auto">
+<h2>Ingresar al sistema</h2>
+<div id="mensaje-error" class="error" th:if="${error}" th:text="${error}"></div>
+<form id="form-login" method="post" action="/login">
+<label for="usuario">Usuario</label><input id="usuario" name="usuario" th:value="${usuario}" autocomplete="username">
+<label for="clave">Clave</label><input id="clave" name="clave" type="password" autocomplete="current-password">
+<button id="btn-ingresar" type="submit">Ingresar</button></form></div></main></body></html>

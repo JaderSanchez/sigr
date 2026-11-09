@@ -1,0 +1,5 @@
+<!DOCTYPE html><html lang="es" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><title>Pedidos - SIGR</title><link rel="stylesheet" href="/estilos.css"></head>
+<body><div th:replace="~{fragmentos :: cabecera}"></div><main><div class="tarjeta"><h2>Tablero de pedidos</h2>
+<table id="tabla-pedidos"><tr><th>#</th><th>Mesa</th><th>Estado</th><th>Total</th></tr>
+<tr th:each="p : ${pedidos}"><td th:text="${p.id}"></td><td th:text="${p.mesa}"></td><td th:text="${p.estado}"></td>
+<td th:text="${'$' + #numbers.formatInteger(p.total,1,'POINT')}"></td></tr></table></div></main></body></html>
