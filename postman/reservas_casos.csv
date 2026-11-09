@@ -1,0 +1,10 @@
+caso,cliente,telefono,dias,hora,personas,estado_esperado,mensaje_esperado
+Reserva normal,Laura Gómez,3155551212,7,19:30:00,4,201,
+Límite inferior de hora,Pedro Ruiz,3001112233,3,12:00:00,2,201,
+Límite superior de hora,Ana Rojas,3104445566,3,22:00:00,2,201,
+Antes de abrir,Juan Mora,3007778899,3,11:59:00,2,422,El horario de reservas es de 12:00 a 22:00
+Después de cerrar,Sofía Díaz,3112223344,3,22:01:00,2,422,El horario de reservas es de 12:00 a 22:00
+Cero personas,Luis Peña,3123334455,5,13:00:00,0,422,Las reservas son para 1 a 12 personas
+Trece personas,Marta León,3134445566,5,13:00:00,13,422,Las reservas son para 1 a 12 personas
+Fecha pasada,Carlos Gil,3145556677,-1,13:00:00,2,422,No se puede reservar en una fecha pasada
+Teléfono corto,Diana Vela,315555,4,14:00:00,2,422,El teléfono debe tener 10 dígitos

@@ -1,0 +1,65 @@
+{
+  "info": {
+    "name": "SIGR - Reservas guiadas por datos",
+    "description": "Una sola petición que se ejecuta una vez por cada fila de reservas_casos.csv.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Reserva - {{caso}}",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservas",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservas"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cliente\": \"{{cliente}}\",\n  \"telefono\": \"{{telefono}}\",\n  \"fecha\": \"{{fecha}}\",\n  \"hora\": \"{{hora}}\",\n  \"personas\": \"{{personas}}\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const esperado = Number(pm.iterationData.get(\"estado_esperado\"));",
+              "pm.test(pm.iterationData.get(\"caso\") + \": estado \" + esperado, () => pm.response.to.have.status(esperado));",
+              "const msg = pm.iterationData.get(\"mensaje_esperado\");",
+              "if (msg) pm.test(\"Mensaje: \" + msg, () => pm.expect(pm.response.json().errores[0]).to.eql(msg));"
+            ]
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const f = new Date(); f.setDate(f.getDate() + Number(pm.iterationData.get(\"dias\")));",
+              "pm.variables.set(\"fecha\", f.toISOString().slice(0, 10));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
