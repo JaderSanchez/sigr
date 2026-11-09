@@ -2,6 +2,11 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado semántico.
 
+## [Sin publicar]
+
+### Agregado
+- Campo opcional de notas en las reservas, hasta 200 caracteres, para alergias u ocasiones especiales (RFC-001).
+
 ## [1.0.0] - 2026-11-09 (línea base)
 
 ### Agregado

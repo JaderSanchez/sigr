@@ -22,7 +22,15 @@ public class ReservaServicio {
         this.reservas = reservas; this.reloj = reloj;
     }
 
+    public static final int MAX_NOTAS = 200;
+
     public Reserva crear(String cliente, String telefono, LocalDate fecha, LocalTime hora, int personas) {
+        return crear(cliente, telefono, fecha, hora, personas, null);
+    }
+
+    public Reserva crear(String cliente, String telefono, LocalDate fecha, LocalTime hora, int personas, String notas) {
+        if (notas != null && notas.length() > MAX_NOTAS)
+            throw new ReglaNegocioException("Las notas admiten máximo " + MAX_NOTAS + " caracteres");
         if (cliente == null || cliente.isBlank()) throw new ReglaNegocioException("El nombre del cliente es obligatorio");
         if (telefono == null || !telefono.matches("\\d{10}")) throw new ReglaNegocioException("El teléfono debe tener 10 dígitos");
         if (fecha == null || hora == null) throw new ReglaNegocioException("La fecha y la hora son obligatorias");
@@ -31,7 +39,9 @@ public class ReservaServicio {
             throw new ReglaNegocioException("El horario de reservas es de 12:00 a 22:00");
         if (personas < 1 || personas > MAX_PERSONAS)
             throw new ReglaNegocioException("Las reservas son para 1 a " + MAX_PERSONAS + " personas");
-        return reservas.save(new Reserva(cliente.trim(), telefono, fecha, hora, personas));
+        Reserva reserva = new Reserva(cliente.trim(), telefono, fecha, hora, personas);
+        reserva.setNotas(notas == null || notas.isBlank() ? null : notas.trim());
+        return reservas.save(reserva);
     }
 
     public List<Reserva> listar() { return reservas.findAll(); }
