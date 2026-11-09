@@ -64,14 +64,15 @@ public class WebControlador {
     @PostMapping("/reservas/nueva")
     public String reservar(@RequestParam(required = false) String cliente, @RequestParam(required = false) String telefono,
                            @RequestParam(required = false) String fecha, @RequestParam(required = false) String hora,
-                           @RequestParam(required = false) Integer personas, Model model) {
+                           @RequestParam(required = false) Integer personas,
+                           @RequestParam(required = false) String notas, Model model) {
         model.addAttribute("cliente", cliente); model.addAttribute("telefono", telefono);
-        model.addAttribute("fecha", fecha); model.addAttribute("hora", hora); model.addAttribute("personas", personas);
+        model.addAttribute("fecha", fecha); model.addAttribute("hora", hora); model.addAttribute("personas", personas); model.addAttribute("notas", notas);
         try {
             var r = reservas.crear(cliente, telefono,
                     fecha == null || fecha.isBlank() ? null : LocalDate.parse(fecha),
                     hora == null || hora.isBlank() ? null : LocalTime.parse(hora),
-                    personas == null ? 0 : personas);
+                    personas == null ? 0 : personas, notas);
             model.addAttribute("exito", "Reserva confirmada con el código R-" + r.getId()
                     + " para " + r.getPersonas() + " personas el " + r.getFecha() + " a las " + r.getHora());
         } catch (ReglaNegocioException e) {

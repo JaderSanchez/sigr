@@ -21,11 +21,12 @@ public class ReservaApi {
                                @NotBlank(message = "es obligatorio") String telefono,
                                @NotNull(message = "es obligatoria") LocalDate fecha,
                                @NotNull(message = "es obligatoria") LocalTime hora,
-                               @NotNull(message = "es obligatorio") Integer personas) {}
+                               @NotNull(message = "es obligatorio") Integer personas,
+                               String notas) {}
 
     @PostMapping @ResponseStatus(HttpStatus.CREATED)
     public Reserva crear(@Valid @RequestBody NuevaReserva r) {
-        return reservas.crear(r.cliente(), r.telefono(), r.fecha(), r.hora(), r.personas());
+        return reservas.crear(r.cliente(), r.telefono(), r.fecha(), r.hora(), r.personas(), r.notas());
     }
 
     @GetMapping public List<Reserva> listar() { return reservas.listar(); }

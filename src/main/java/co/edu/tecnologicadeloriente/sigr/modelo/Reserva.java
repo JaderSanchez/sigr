@@ -15,6 +15,9 @@ public class Reserva {
     private LocalTime hora;
     private int personas;
 
+    @Column(length = 200)
+    private String notas;
+
     protected Reserva() {}
 
     public Reserva(String cliente, String telefono, LocalDate fecha, LocalTime hora, int personas) {
@@ -27,4 +30,6 @@ public class Reserva {
     public LocalDate getFecha() { return fecha; }
     public LocalTime getHora() { return hora; }
     public int getPersonas() { return personas; }
+    public String getNotas() { return notas; }
+    public void setNotas(String notas) { this.notas = notas; }
 }

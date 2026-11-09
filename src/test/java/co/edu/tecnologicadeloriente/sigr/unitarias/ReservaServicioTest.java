@@ -78,6 +78,16 @@ class ReservaServicioTest {
         assertEquals("No se puede reservar en una fecha pasada", e.getMessage());
     }
 
+    @Test
+    @DisplayName("RFC-001: las notas se guardan y una nota de más de 200 caracteres se rechaza")
+    void notasDeLaReserva() {
+        Reserva r = servicio.crear("Laura", "3155551212", MANANA, LocalTime.NOON, 2, "Alergia al maní");
+        assertEquals("Alergia al maní", r.getNotas());
+        var e = assertThrows(ReglaNegocioException.class,
+                () -> servicio.crear("Laura", "3155551212", MANANA, LocalTime.NOON, 2, "x".repeat(201)));
+        assertEquals("Las notas admiten máximo 200 caracteres", e.getMessage());
+    }
+
     @ParameterizedTest(name = "teléfono inválido {0}")
     @ValueSource(strings = {"315555121", "31555512123", "315555121A", ""})
     void telefonoInvalido(String telefono) {
