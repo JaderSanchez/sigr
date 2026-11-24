@@ -1,5 +1,7 @@
 # SIGR: Sistema Integral de Gestión de Restaurante
 
+[![CI/CD SIGR](https://github.com/JaderSanchez/sigr/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/JaderSanchez/sigr/actions/workflows/ci-cd.yml)
+
 Aplicación web para gestionar la operación de un restaurante: pedidos, reservas, menú digital, usuarios y cierre de caja. Proyecto académico de la asignatura Gestión del Software (Corporación Escuela Tecnológica del Oriente).
 
 ## Módulos de la versión 1.0.0 (línea base)
@@ -79,3 +81,12 @@ postman/         colecciones y datos de prueba de la API
 ## Licencia
 
 MIT. Ver `LICENSE.txt`.
+
+
+## Pipeline CI/CD
+
+Cada push o pull request a `main` ejecuta `.github/workflows/ci-cd.yml` en GitHub Actions:
+
+1. **Build, pruebas y cobertura:** `./mvnw verify` compila, corre las 45 pruebas y aplica una puerta de calidad de JaCoCo (80 % de instrucciones como mínimo).
+2. **Seguridad:** Trivy revisa las dependencias y falla si encuentra vulnerabilidades críticas con corrección disponible.
+3. **Staging:** construye la imagen Docker con el JAR ya probado, la escanea, la despliega, ejecuta una prueba de humo y una prueba de rendimiento con k6 (`perf/humo-rendimiento.js`: p95 < 500 ms y menos del 1 % de errores).
