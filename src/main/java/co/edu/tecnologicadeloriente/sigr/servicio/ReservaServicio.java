@@ -35,13 +35,18 @@ public class ReservaServicio {
         if (telefono == null || !telefono.matches("\\d{10}")) throw new ReglaNegocioException("El teléfono debe tener 10 dígitos");
         if (fecha == null || hora == null) throw new ReglaNegocioException("La fecha y la hora son obligatorias");
         if (fecha.isBefore(LocalDate.now(reloj))) throw new ReglaNegocioException("No se puede reservar en una fecha pasada");
-        if (hora.isBefore(APERTURA) || hora.isAfter(ULTIMA_RESERVA))
-            throw new ReglaNegocioException("El horario de reservas es de 12:00 a 22:00");
+        if (!dentroDelHorario(hora))
+            throw new ReglaNegocioException("El horario de reservas es de " + APERTURA + " a " + ULTIMA_RESERVA);
         if (personas < 1 || personas > MAX_PERSONAS)
             throw new ReglaNegocioException("Las reservas son para 1 a " + MAX_PERSONAS + " personas");
         Reserva reserva = new Reserva(cliente.trim(), telefono, fecha, hora, personas);
         reserva.setNotas(notas == null || notas.isBlank() ? null : notas.trim());
         return reservas.save(reserva);
+    }
+
+    /** Horario en que se aceptan reservas: de APERTURA a ULTIMA_RESERVA, ambas incluidas. */
+    static boolean dentroDelHorario(LocalTime hora) {
+        return !hora.isBefore(APERTURA) && !hora.isAfter(ULTIMA_RESERVA);
     }
 
     public List<Reserva> listar() { return reservas.findAll(); }
