@@ -44,9 +44,9 @@ public class ReservaServicio {
         return reservas.save(reserva);
     }
 
-    /** Horario en que se aceptan reservas. */
+    /** Horario en que se aceptan reservas: de APERTURA a ULTIMA_RESERVA, ambas incluidas. */
     static boolean dentroDelHorario(LocalTime hora) {
-        return !hora.isBefore(APERTURA) && hora.isBefore(ULTIMA_RESERVA);
+        return !hora.isBefore(APERTURA) && !hora.isAfter(ULTIMA_RESERVA);
     }
 
     public List<Reserva> listar() { return reservas.findAll(); }
